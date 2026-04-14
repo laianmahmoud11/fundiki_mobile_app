@@ -3,51 +3,91 @@
  * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
  */
 
-import { Platform } from 'react-native';
+// src/theme/typography.js
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+export type HeadingLevel =
+  | "h1"
+  | "h2"
+  | "h3"
+  | "h4"
+  | "body1"
+  | "body2"
+  | "label"
+  | "caption";
 
+export const fontFamily = {
+  regular: "Poppins-Regular",
+  medium: "Poppins-Medium",
+  bold: "Poppins-Bold",
+  semiBold: "Poppins-SemiBold",
+};
+
+export const fontSize = {
+  h1: 32,
+  h2: 28,
+  h3: 24,
+  h4: 20,
+  body1: 16,
+  body2: 14,
+  label: 12,
+  caption: 10,
+  button: 16,
+  overline: 12,
+};
+
+export const fontWeight = {
+  regular: "400",
+  medium: "500",
+  semiBold: "600",
+  bold: "700",
+};
+
+export const getHeadingStyle = (level: HeadingLevel) => {
+  const styles: Record<HeadingLevel, any> = {
+    h1: { fontFamily: fontFamily.bold, fontSize: fontSize.h1 },
+    h2: { fontFamily: fontFamily.bold, fontSize: fontSize.h2 },
+    h3: { fontFamily: fontFamily.bold, fontSize: fontSize.h3 },
+    h4: { fontFamily: fontFamily.bold, fontSize: fontSize.h4 },
+    body1: { fontFamily: fontFamily.regular, fontSize: fontSize.body1 },
+    body2: { fontFamily: fontFamily.regular, fontSize: fontSize.body2 },
+    label: { fontFamily: fontFamily.medium, fontSize: fontSize.label },
+    caption: { fontFamily: fontFamily.regular, fontSize: fontSize.caption },
+  };
+  return styles[level];
+};
+
+export const colors = {
+  primary: "#FFFFFF",
+  secondary: "#003B95",
+  tertiary: "#006CE4",
+  tartary: "#FFC107",
+
+  text: "#000000",
+  background: "#F5F5F5",
+  border: "#E0E0E0",
+  white: "#FFFFFF",
+  black: "#000000",
+  error: "#FF3B30",
+  success: "#34C759",
+};
 export const Colors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
+    ...colors,
+    tint: colors.tertiary,
+    icon: "#6E6E6E",
+    tabIconDefault: "#6E6E6E",
+    tabIconSelected: colors.tertiary,
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+    ...colors,
+    text: "#FFFFFF",
+    background: "#1C1C1E",
+    border: "#3A3A3C",
+    tint: colors.tertiary,
+    icon: "#9BA1A6",
+    tabIconDefault: "#9BA1A6",
+    tabIconSelected: colors.tertiary,
   },
 };
 
-export const Fonts = Platform.select({
-  ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
-  },
-  default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
-  },
-  web: {
-    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    serif: "Georgia, 'Times New Roman', serif",
-    rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
-    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-  },
-});
+export type ColorKey = keyof typeof colors;
