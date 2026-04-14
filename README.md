@@ -1,50 +1,27 @@
-# Welcome to your Expo app 👋
+# Fundiki Mobile
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This folder contains a fresh `React Native` starter for the hotel booking home screen shown in your design.
 
-## Get started
+## What is included
 
-1. Install dependencies
+- A blue header with the `Fundiki` brand
+- Search inputs for destination, date, and guest count
+- A primary search button
+- Discount cards below the search area
+- A popular hotels section for well-known cities
+- A bottom navigation bar similar to the reference image
 
-   ```bash
-   npm install
-   ```
+## Run it
 
-2. Start the app
+1. Open this folder in `VS Code`.
+2. Open `Android Studio` and start an Android emulator.
+3. In the terminal run `npm install`.
+4. Then run `npm run android`.
 
-   ```bash
-   npx expo start
-   ```
+For iPhone on macOS, run `npm run ios`.
 
-In the output, you'll find options to open the app in a
+## Notes
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- I kept the UI very close to the image you shared.
+- The search fields are currently static placeholders so we can focus on the design first.
+- Next, we can convert the fields into real pickers, date selection, and navigation.
