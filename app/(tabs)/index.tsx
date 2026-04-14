@@ -1,98 +1,171 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet, ActivityIndicator, Alert } from 'react-native';
+import { useEffect, useState } from 'react';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import Header from '../../components/Header';
+import Tabs from '../../components/Tabs';
+import EmptyState from '../../components/EmptyState';
+import PastBookings from '../../components/PastBooking';
+import ActiveBookings from '../../components/ActiveBookings';
 
-export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+import { Booking } from '../../types/booking';
+import { getCurrentUser } from '../../services/authService';
+import {
+  getActiveBookings,
+  getPastBookings,
+  cancelBooking,
+  completeBooking
+} from '../../services/mybookingService';
+
+export default function Home() {
+  const [activeTab, setActiveTab] = useState<'active' | 'past'>('active');
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const [activeBookings, setActiveBookings] = useState<Booking[]>([]);
+  const [pastBookings, setPastBookings] = useState<Booking[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    initializeScreen();
+  }, []);
+
+  async function initializeScreen() {
+    try {
+      setLoading(true);
+
+      const user = await getCurrentUser();
+
+      if (!user) {
+        setCurrentUserId(null);
+        setActiveBookings([]);
+        setPastBookings([]);
+        return;
+      }
+
+      setCurrentUserId(user.id);
+      await loadBookings(user.id);
+    } catch (error) {
+      console.log('Failed to initialize screen:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function loadBookings(userId: string) {
+    try {
+      const activeData = await getActiveBookings(userId);
+      const pastData = await getPastBookings(userId);
+
+      setActiveBookings(activeData);
+      setPastBookings(pastData);
+    } catch (error) {
+      console.log('Failed to load bookings:', error);
+      setActiveBookings([]);
+      setPastBookings([]);
+    }
+  }
+
+  async function handleCancelBooking(bookingId: string) {
+    try {
+      await cancelBooking(bookingId);
+
+      if (currentUserId) {
+        await loadBookings(currentUserId);
+      }
+    } catch (error) {
+      console.log('Failed to cancel booking:', error);
+      Alert.alert('Error', 'Could not cancel the booking.');
+    }
+  }
+
+  async function handleCompleteBooking(bookingId: string) {
+    try {
+      await completeBooking(bookingId);
+
+      if (currentUserId) {
+        await loadBookings(currentUserId);
+      }
+    } catch (error) {
+      console.log('Failed to complete booking:', error);
+      Alert.alert('Error', 'Could not complete the booking.');
+    }
+  }
+
+  function handleSignIn() {
+    Alert.alert('Sign in', 'Connect this button to your team login screen later.');
+  }
+
+  function handleAddBooking() {
+    Alert.alert('Add booking', 'Connect this button to your booking flow later.');
+  }
+
+  function renderLoggedOutState() {
+    return (
+      <EmptyState
+        title={activeTab === 'active' ? 'No active bookings' : 'No past bookings'}
+        subtitle="Please sign in first to view and manage your bookings."
+        buttonText="Sign in"
+        onPressButton={handleSignIn}
+      />
+    );
+  }
+
+  function renderContent() {
+    if (loading) {
+      return <ActivityIndicator size="large" color="#1f4ba5" style={styles.loader} />;
+    }
+
+    if (!currentUserId) {
+      return renderLoggedOutState();
+    }
+
+    if (activeTab === 'active') {
+      if (activeBookings.length === 0) {
+        return (
+          <EmptyState
+            title="No active bookings"
+            subtitle="You do not have any active bookings yet."
+            buttonText="Add booking"
+            onPressButton={handleAddBooking}
+          />
+        );
+      }
+
+      return (
+        <ActiveBookings
+          bookings={activeBookings}
+          onCancelBooking={handleCancelBooking}
+          onCompleteBooking={handleCompleteBooking}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+      );
+    }
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    if (pastBookings.length === 0) {
+      return (
+        <EmptyState
+          title="No past bookings"
+          subtitle="Completed or cancelled bookings will appear here."
+          hideButton
+        />
+      );
+    }
+
+    return <PastBookings bookings={pastBookings} />;
+  }
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <Header />
+      <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
+      {renderContent()}
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
+    backgroundColor: '#f2f2f2'
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
+  loader: {
+    marginTop: 40
+  }
 });
