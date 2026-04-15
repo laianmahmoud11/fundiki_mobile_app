@@ -1,24 +1,19 @@
-<<<<<<< kenda-sawalmeh
+import { useColorScheme } from '@/hooks/use-color-scheme';
+import { queryClient } from "@/lib/queryClient";
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
+import { StatusBar } from 'expo-status-bar';
+import { PaperProvider, Portal } from 'react-native-paper';
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Poppins_400Regular,
   Poppins_500Medium,
   Poppins_700Bold,
   useFonts,
 } from "@expo-google-fonts/poppins";
-=======
-mport { useColorScheme } from '@/hooks/use-color-scheme';
-import { queryClient } from "@/lib/queryClient";
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { QueryClientProvider } from "@tanstack/react-query";
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { PaperProvider, Portal } from 'react-native-paper';
 import 'react-native-reanimated';
->>>>>>> main
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -27,7 +22,6 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-<<<<<<< kenda-sawalmeh
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
@@ -40,12 +34,11 @@ export default function RootLayout() {
     }
   }, [fontsLoaded]);
 
+  const colorScheme = useColorScheme();
+
   if (!fontsLoaded) {
     return null;
   }
-=======
-  const colorScheme = useColorScheme();
->>>>>>> main
 
   return (
     <PaperProvider>
@@ -62,6 +55,7 @@ export default function RootLayout() {
               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
               <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
             </Stack>
+           
             <StatusBar style="auto" />
           </ThemeProvider>
         </QueryClientProvider>

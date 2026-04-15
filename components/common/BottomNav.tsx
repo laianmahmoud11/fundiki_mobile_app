@@ -1,9 +1,15 @@
-import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { Feather, Ionicons, SimpleLineIcons } from '@expo/vector-icons';
-import { styles } from '../../styles/homeStyles';
+import { useRouter } from 'expo-router';
+import { styles } from '@/styles/homeStyles';
 
-function BottomBarIcon({ item, active }) {
+function BottomBarIcon({
+  item,
+  active,
+}: {
+  item: string;
+  active: boolean;
+}) {
   const color = active ? '#1F4FFF' : '#101010';
   const size = 31;
 
@@ -22,10 +28,31 @@ function BottomBarIcon({ item, active }) {
   return <Ionicons name="person-circle-outline" size={size + 2} color={color} />;
 }
 
+type BottomNavProps = {
+  navItems: string[];
+  activeItem?: string;
+};
+
 export default function BottomNav({
   navItems,
   activeItem = 'Search',
-}) {
+}: BottomNavProps) {
+  const router = useRouter();
+
+  function handleNavigation(item: string) {
+    if (item === 'Search') {
+      router.push('/');
+    }
+
+    if (item === 'Saved') {
+      router.push('/hotelList');
+    }
+
+    if (item === 'Bookings') {
+      router.push('/mybookingscreen');
+    }
+  }
+
   return (
     <View style={styles.bottomNav}>
       {navItems.map((item) => (
@@ -33,6 +60,7 @@ export default function BottomNav({
           key={item}
           style={styles.navItem}
           activeOpacity={0.85}
+          onPress={() => handleNavigation(item)}
         >
           <BottomBarIcon item={item} active={item === activeItem} />
           <Text

@@ -1,20 +1,20 @@
 import { SafeAreaView, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import { useEffect, useState } from 'react';
+import BrandLogo from '@/components/common/brandLogo';
+import SmallNaviBar from '@/components/common/smallNaviBar';
+import Tabs from '@/components/Tabs';
+import EmptyState from '@/components/EmptyState';
+import PastBookings from '@/components/PastBooking';
+import ActiveBookings from '@/components/ActiveBookings';
 
-import Header from '../../components/Header';
-import Tabs from '../../components/Tabs';
-import EmptyState from '../../components/EmptyState';
-import PastBookings from '../../components/PastBooking';
-import ActiveBookings from '../../components/ActiveBookings';
-
-import { Booking } from '../../types/booking';
-import { getCurrentUser } from '../../services/authService';
+import { Booking } from '@/types/booking';
+import { getCurrentUser} from '@/services/AuthService'
 import {
   getActiveBookings,
   getPastBookings,
   cancelBooking,
   completeBooking
-} from '../../services/mybookingService';
+} from '@/services/mybookingService';
 
 export default function HomeScreen() {
   const [activeTab, setActiveTab] = useState<'active' | 'past'>('active');
@@ -153,7 +153,7 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
+       <SmallNaviBar ><BrandLogo /></SmallNaviBar>
       <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
       {renderContent()}
     </SafeAreaView>

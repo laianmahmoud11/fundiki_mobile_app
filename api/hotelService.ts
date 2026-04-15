@@ -1,5 +1,5 @@
  
- import ApiBase from "@/api/ApiBase";
+ import ApiBase from './ApiBase';
  
  
  export const getHotel=async()=>{

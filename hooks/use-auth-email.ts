@@ -1,4 +1,4 @@
-import { loginOrSignup } from "@/services/AuthService";
+import { loginOrSignup } from "@/services/AutheService";
 import { useMutation } from "@tanstack/react-query";
 import { router } from "expo-router";
 

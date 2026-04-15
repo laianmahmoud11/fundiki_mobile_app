@@ -6,25 +6,26 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import BottomNav from '../components/home/BottomNav';
-import HomeHeader from '../components/home/HomeHeader';
-import HomeSections from '../components/home/HomeSections';
-import SearchCard from '../components/home/SearchCard';
+import BottomNav from '@/components/common/BottomNav';
+import HomeHeader from '@/components/home/HomeHeader';
+import HomeSections from '@/components/home/HomeSections';
+import SearchCard from '@/components/home/SearchCard';
 import {
   deals,
   ideas,
   navItems,
-} from '../data/homeData';
+}  from '../../../data/homeData';
+
 import {
   getPopularCapitalHotels,
   getWeekendDeals,
   searchHotels,
-} from '../services/hotelService';
-import { styles } from '../styles/homeStyles';
-import { getRandomItems } from '../utils/contentHelpers';
-import { buildSearchFilters } from '../utils/searchHelpers';
+} from '@/services/hotelService';
+import { styles } from '@/styles/homeStyles';
+import { getRandomItems } from '@/utils/contentHelpers';
+import { buildSearchFilters } from '@/utils/searchHelpers';
 
-export default function HomeScreen() {
+const HomeScreen = () => {
   const [destination, setDestination] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [weekendDeals, setWeekendDeals] = useState([]);
@@ -109,3 +110,4 @@ export default function HomeScreen() {
     </SafeAreaView>
   );
 }
+export default HomeScreen;

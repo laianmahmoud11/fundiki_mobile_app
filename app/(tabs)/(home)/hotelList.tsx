@@ -1,6 +1,5 @@
 import { getHotel } from "@/api/hotelService";
 import Message from "@/components/Banner";
-//import FilterBar from "@/components/filterBar";
 import FilterBar from "@/components/filterBar";
 import HotelListCard from "@/components/hotelList-card";
 import InputSearch from "@/components/ui/inputSearch";
