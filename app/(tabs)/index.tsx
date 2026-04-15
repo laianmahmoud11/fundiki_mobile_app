@@ -16,7 +16,7 @@ import {
   completeBooking
 } from '../../services/mybookingService';
 
-export default function Home() {
+export default function HomeScreen() {
   const [activeTab, setActiveTab] = useState<'active' | 'past'>('active');
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [activeBookings, setActiveBookings] = useState<Booking[]>([]);
