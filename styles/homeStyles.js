@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
   },
   topPanel: {
     alignItems: 'center',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.secondary,
     paddingBottom: 22,
     paddingHorizontal: 20,
     paddingTop: 24,

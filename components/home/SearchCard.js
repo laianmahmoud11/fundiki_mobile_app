@@ -1,12 +1,11 @@
-import React from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { styles } from '../../styles/homeStyles';
+import { styles } from '@/styles/homeStyles';
 
-export default function SearchCard({
+const SearchCard = ({
   destination,
   onDestinationChange,
   onSearch,
-}) {
+}) => {
   return (
     <View style={styles.searchCard}>
       <View style={styles.searchRow}>
@@ -32,3 +31,4 @@ export default function SearchCard({
     </View>
   );
 }
+export default SearchCard;

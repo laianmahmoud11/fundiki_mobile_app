@@ -1,8 +1,7 @@
-import React from 'react';
 import { Text, View } from 'react-native';
-import { styles } from '../../styles/homeStyles';
+import { styles } from '@/styles/homeStyles';
 
-export default function HomeHeader() {
+const HomeHeader = () => {
   return (
     <View style={styles.topPanel}>
       <Text style={styles.brand}>
@@ -15,3 +14,4 @@ export default function HomeHeader() {
     </View>
   );
 }
+export default HomeHeader;

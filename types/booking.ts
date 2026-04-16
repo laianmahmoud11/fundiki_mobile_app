@@ -6,16 +6,12 @@ export type Booking = {
   hotelId: string;
   hotelName: string;
   city: string;
-  country: string;
   image: string;
-  checkInDate: string;
-  checkOutDate: string;
+  dateFrom: string;
+  dateTo: string;
   rooms: number;
   guests: number;
-  checkInTime: string;
   status: BookingStatus;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type CreateBookingPayload = {
@@ -23,12 +19,9 @@ export type CreateBookingPayload = {
   hotelId: string;
   hotelName: string;
   city: string;
-  country: string;
   image: string;
-  checkInDate: string;
-  checkOutDate: string;
+  dateFrom: string;
+  dateTo: string;
   rooms: number;
   guests: number;
-  checkInTime: string;
-  status?: BookingStatus;
 };

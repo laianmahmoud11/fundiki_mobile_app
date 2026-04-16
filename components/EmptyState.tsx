@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 type Props = {
   title?: string;
@@ -8,13 +8,13 @@ type Props = {
   hideButton?: boolean;
 };
 
-export default function EmptyState({
+const EmptyState = ({
   title = 'No bookings yet',
   subtitle = 'Sign in or create an account to get started.',
   buttonText = 'Sign in',
   onPressButton,
   hideButton = false
-}: Props) {
+}: Props) => {
   return (
     <View style={styles.container}>
       <Image
@@ -32,7 +32,7 @@ export default function EmptyState({
         </TouchableOpacity>
       )}
 
-      <Text style={styles.link}>Import booking</Text>
+    
     </View>
   );
 }
@@ -79,3 +79,4 @@ const styles = StyleSheet.create({
     color: '#1f4ba5'
   }
 });
+export default EmptyState;

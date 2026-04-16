@@ -1,3 +1,4 @@
+import { colors } from '@/constants/theme';
 import * as React from 'react';
 import { View } from 'react-native';
 import { Button, Divider, Menu } from 'react-native-paper';
@@ -23,7 +24,7 @@ const FilterBar = ({FilterPrice,FilterRating,sortNameAToZ,sortNameZToA,sortRatin
          borderRadius: 2,
        justifyContent:"space-around",
      
-       backgroundColor:"#006CE4"
+       backgroundColor:colors.secondary
         }}>
         <Menu
        

@@ -1,8 +1,8 @@
 import { getHotel } from "@/api/hotelService";
 import Message from "@/components/Banner";
-//import FilterBar from "@/components/filterBar";
 import FilterBar from "@/components/filterBar";
 import HotelListCard from "@/components/hotelList-card";
+import TopBarNavigation from "@/components/Topbar";
 import InputSearch from "@/components/ui/inputSearch";
 import { useQuery } from "@tanstack/react-query";
 import * as React from 'react';
@@ -109,13 +109,15 @@ setNewData(data?.filter((hotels: any) =>{
 
     
  return (
+     
     <SafeAreaView  style={styles.container}>
+       <TopBarNavigation />
      <ScrollView>
-         
-        <InputSearch  placeholder={"search" } value={search}  onChangeText={handleSearch}   />
+        <View style={{marginTop:10}}>
+        <InputSearch  placeholder={"search" } value={search}  onChangeText={handleSearch}   autoFocus={true} />
        
             <FilterBar FilterPrice={FilterPrice}  FilterRating={FilterRating} sortNameAToZ={sortNameAToZ} sortNameZToA={sortNameZToA} sortRating={sortRating}/>
-      
+      </View>
       <Message 
        image={require('@/assets/images/iconBanner.png')}
      Text={"Commission paid on bookings and other factors may affect property rankings. Learn about these ranking parameteters and how to select and modify them. "} 

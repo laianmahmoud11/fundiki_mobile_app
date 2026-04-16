@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet } from 'react-native';
-import { Booking } from '../types/booking';
+import { Booking } from '@/types/booking';
 import BookingCard from './mybookingcard';
 
 type Props = {
@@ -8,18 +8,18 @@ type Props = {
   onCompleteBooking: (bookingId: string) => void;
 };
 
-export default function ActiveBookings({
+const ActiveBookings = ({
   bookings,
   onCancelBooking,
   onCompleteBooking
-}: Props) {
+}: Props) => {
   return (
     <ScrollView
       style={styles.container}
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
-      {bookings.map((booking) => (
+      {bookings.map((booking: Booking) => (
         <BookingCard
           key={booking.id}
           booking={booking}
@@ -41,3 +41,4 @@ const styles = StyleSheet.create({
     paddingBottom: 30
   }
 });
+export default ActiveBookings;

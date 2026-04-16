@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import HomeHeader from '@/components/home/HomeHeader';
+import HomeSections from '@/components/home/HomeSections';
+import InputSearch from "@/components/ui/inputSearch";
+
+import { useEffect, useState } from 'react';
 import {
   Alert,
   ScrollView,
-  StatusBar,
-  View,
+  View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import BottomNav from '../components/home/BottomNav';
-import HomeHeader from '../components/home/HomeHeader';
-import HomeSections from '../components/home/HomeSections';
-import SearchCard from '../components/home/SearchCard';
 import {
   deals,
-  ideas,
-  navItems,
-} from '../data/homeData';
+  ideas
+} from '../../../data/homeData';
+
 import {
   getPopularCapitalHotels,
   getWeekendDeals,
   searchHotels,
-} from '../services/hotelService';
-import { styles } from '../styles/homeStyles';
-import { getRandomItems } from '../utils/contentHelpers';
-import { buildSearchFilters } from '../utils/searchHelpers';
+} from '@/services/hotelService';
+import { styles } from '@/styles/homeStyles';
+import { getRandomItems } from '@/utils/contentHelpers';
+import { buildSearchFilters } from '@/utils/searchHelpers';
+import { router } from 'expo-router';
 
-export default function HomeScreen() {
+const HomeScreen = () => {
   const [destination, setDestination] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [weekendDeals, setWeekendDeals] = useState([]);
@@ -77,21 +77,17 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBar barStyle="light-content" backgroundColor="#1f49a7" />
+      
 
       <View style={styles.screen}>
         <HomeHeader />
-
+<InputSearch  placeholder={"search" }  onFocus={()=>{   router.push('/hotelList');}}   />
         <ScrollView
           style={styles.content}
           contentContainerStyle={styles.contentContainer}
           showsVerticalScrollIndicator={false}
         >
-          <SearchCard
-            destination={destination}
-            onDestinationChange={setDestination}
-            onSearch={isSearching ? null : handleSearch}
-          />
+          
 
           <HomeSections
             deals={randomDeals}
@@ -101,11 +97,9 @@ export default function HomeScreen() {
           />
         </ScrollView>
 
-        <BottomNav
-          navItems={navItems}
-          activeItem="Search"
-        />
+        
       </View>
     </SafeAreaView>
   );
 }
+export default HomeScreen;

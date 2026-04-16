@@ -1,20 +1,23 @@
-import { SafeAreaView, StyleSheet, ActivityIndicator, Alert } from 'react-native';
+import ActiveBookings from '@/components/ActiveBookings';
+import BrandLogo from '@/components/common/brandLogo';
+import SmallNaviBar from '@/components/common/smallNaviBar';
+import EmptyState from '@/components/EmptyState';
+import PastBookings from '@/components/PastBooking';
+import Tabs from '@/components/Tabs';
 import { useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import Header from '../../components/Header';
-import Tabs from '../../components/Tabs';
-import EmptyState from '../../components/EmptyState';
-import PastBookings from '../../components/PastBooking';
-import ActiveBookings from '../../components/ActiveBookings';
-
-import { Booking } from '../../types/booking';
-import { getCurrentUser } from '../../services/authService';
+import BottomNav from '@/components/common/BottomNav';
+import { getCurrentUser } from '@/services/AuthService';
 import {
-  getActiveBookings,
-  getPastBookings,
   cancelBooking,
-  completeBooking
-} from '../../services/mybookingService';
+  completeBooking,
+  getActiveBookings,
+  getPastBookings
+} from '@/services/mybookingService';
+import { Booking } from '@/types/booking';
+import { router } from 'expo-router';
 
 export default function HomeScreen() {
   const [activeTab, setActiveTab] = useState<'active' | 'past'>('active');
@@ -91,6 +94,7 @@ export default function HomeScreen() {
 
   function handleSignIn() {
     Alert.alert('Sign in', 'Connect this button to your team login screen later.');
+       router.push('/auth/signInOptionsScreen');
   }
 
   function handleAddBooking() {
@@ -104,6 +108,7 @@ export default function HomeScreen() {
         subtitle="Please sign in first to view and manage your bookings."
         buttonText="Sign in"
         onPressButton={handleSignIn}
+        
       />
     );
   }
@@ -153,9 +158,10 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
+       <SmallNaviBar ><BrandLogo /></SmallNaviBar>
       <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
       {renderContent()}
+       <BottomNav navItems={['Home','Favorite','MyBooking', 'Profile',]} />
     </SafeAreaView>
   );
 }

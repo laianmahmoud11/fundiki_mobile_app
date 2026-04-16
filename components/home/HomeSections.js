@@ -1,15 +1,14 @@
-import React from 'react';
-import { Image, ScrollView, Text, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import SectionTitle from '../SectionTitle';
+import { Image, ScrollView, Text, View } from 'react-native';
 import { styles } from '../../styles/homeStyles';
+import SectionTitle from '../SectionTitle';
 
-export default function HomeSections({
+const HomeSections = ({
   deals,
   weekendDeals,
   popularHotels,
   ideas,
-}) {
+}) => {
   return (
     <>
       <SectionTitle title="Travel more, spend less" />
@@ -119,3 +118,4 @@ export default function HomeSections({
     </>
   );
 }
+export default HomeSections;
