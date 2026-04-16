@@ -86,12 +86,29 @@ async function getHotels() {
 
 export async function getWeekendDeals() {
   const hotels = await getHotels();
+  const discountedHotels = hotels.filter((hotel) => hotel.hasDiscount);
 
-  return hotels.filter((hotel) => hotel.hasDiscount).slice(0, 3);
+  if (discountedHotels.length > 0) {
+    return discountedHotels.slice(0, 3);
+  }
+
+  return hotels.slice(0, 3);
 }
 
 export async function getPopularCapitalHotels() {
   const hotels = await getHotels();
+  const weekendDeals = await getWeekendDeals();
+  const weekendIds = new Set(weekendDeals.map((h) => h.id));
+
+  const sortedByRating = [...hotels]
+    .filter((h) => !weekendIds.has(h.id))
+    .sort((firstHotel, secondHotel) => {
+      return Number(secondHotel.rating) - Number(firstHotel.rating);
+    });
+
+  if (sortedByRating.length >= 3) {
+    return sortedByRating.slice(0, 3);
+  }
 
   return [...hotels]
     .sort((firstHotel, secondHotel) => {

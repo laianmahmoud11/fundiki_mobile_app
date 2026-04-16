@@ -1,27 +1,14 @@
 import StorageService from "@/services/StorageService";
-import { initializeApp } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
-  getAuth,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { AppUser } from '../types/user';
+import { getCurrentUserFromFirebase } from './firebase/firebaseAuthSource';
+import { auth } from './firebase/firebaseconfig';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyD3AUCx-EFiu1mZIyHGwgg2knqJL-Sxqb8",
-  authDomain: "fundiki-app.firebaseapp.com",
-  projectId: "fundiki-app",
-  storageBucket: "fundiki-app.firebasestorage.app",
-  messagingSenderId: "955412175085",
-  appId: "1:955412175085:web:c073a6ef8f407b6368d4e4",
-};
-
-let authInstance: any = null;
 const initAuth = () => {
-  if (!authInstance) {
-    const app = initializeApp(firebaseConfig);
-    authInstance = getAuth(app);
-  }
-  return authInstance;
+  return auth;
 };
 
 type AuthPayload = {
@@ -64,3 +51,7 @@ export const loginOrSignup = async ({ email, password }: AuthPayload) => {
     throw signInError;
   }
 };
+
+export async function getCurrentUser(): Promise<AppUser | null> {
+  return getCurrentUserFromFirebase();
+}

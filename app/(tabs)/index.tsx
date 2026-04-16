@@ -9,7 +9,7 @@ import { ActivityIndicator, Alert, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import BottomNav from '@/components/common/BottomNav';
-import { getCurrentUser } from '@/services/AuthService';
+import { getCurrentUser } from '@/services/AutheService';
 import {
   cancelBooking,
   completeBooking,

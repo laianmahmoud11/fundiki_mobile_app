@@ -1,7 +1,7 @@
-import { AntDesign } from '@expo/vector-icons';
 import { Image, ScrollView, Text, View } from 'react-native';
-import { styles } from '../../styles/homeStyles';
+import { AntDesign } from '@expo/vector-icons';
 import SectionTitle from '../SectionTitle';
+import { styles } from '../../styles/homeStyles';
 
 const HomeSections = ({
   deals,
